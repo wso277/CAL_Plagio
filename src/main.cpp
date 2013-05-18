@@ -68,7 +68,7 @@ int computeLevenshteinDistance(const string& s, const string& t) {
 	return d[n][m];
 }
 
-double computeSimilarityRatio(const string& s, const string& t) {
+double computeSimilarityRatio( string& s,  string& t) {
 	double res = 0;
 
 	vector<string> sSplitted = getSplittedString(s, ' ');
@@ -84,22 +84,107 @@ double computeSimilarityRatio(const string& s, const string& t) {
 			vector<int>(tSplitted.size()));
 	vector<int> bestWord(sSplitted.size());
 
-	return res;
+	for (unsigned int i = 0; i < sSplitted.size(); i++) {
+		for (unsigned int i1 = 0; i1 < tSplitted.size(); i1++)
+			scores[i][i1] = 1000;
+		bestWord[i] = -1;
+	}
+	int WordsMatched = 0;
+	for (unsigned int i = 0; i < sSplitted.size(); i++) {
+		string String1 = sSplitted[i];
+		for (unsigned int i1 = 0; i1 < tSplitted.size(); i1++) {
+			string String2 = tSplitted[i1];
+			int LevenshteinDistance = computeLevenshteinDistance(String1,
+					String2);
+			scores[i][i1] = LevenshteinDistance;
+			if (bestWord[i] == -1
+					|| scores[i][bestWord[i]] > LevenshteinDistance)
+				bestWord[i] = i1;
+		}
+	}
+
+	for (unsigned int i = 0; i < sSplitted.size(); i++) {
+		if (scores[i][bestWord[i]] == 1000)
+			continue;
+		for (unsigned int i1 = i + 1; i1 < sSplitted.size(); i1++) {
+			if (scores[i1][bestWord[i1]] == 1000)
+				continue; //the worst score available, so there are no more words left
+			if (bestWord[i] == bestWord[i1]) //2 words have the same best word
+					{
+				//The first in order has the advantage of keeping the word in equality
+				if (scores[i, bestWord[i]] <= scores[i1, bestWord[i1]]) {
+					scores[i1][bestWord[i1]] = 1000;
+					int CurrentBest = -1;
+					int CurrentScore = 1000;
+					for (int i2 = 0; i2 < tSplitted.size(); i2++) {
+						//Find next bestWord
+						if (CurrentBest == -1
+								|| CurrentScore > scores[i1][i2]) {
+							CurrentBest = i2;
+							CurrentScore = scores[i1][i2];
+						}
+					}
+					bestWord[i1] = CurrentBest;
+				} else //the latter has a better score
+				{
+					scores[i][bestWord[i]] = 1000;
+					int CurrentBest = -1;
+					int CurrentScore = 1000;
+					for (int i2 = 0; i2 < tSplitted.size(); i2++) {
+						//Find next bestWord
+						if (CurrentBest == -1 || CurrentScore > scores[i][i2]) {
+							CurrentBest = i2;
+							CurrentScore = scores[i][i2];
+						}
+					}
+					bestWord[i] = CurrentBest;
+				}
+
+				i = -1;
+				break; //recalculate all
+			}
+		}
+	}
+	for (unsigned int i = 0; i < sSplitted.size(); i++) {
+		if (scores[i][bestWord[i]] == 1000)
+			res += sSplitted[i].size(); //All words without a score for best word are max failures
+		else {
+			res += scores[i][bestWord[i]];
+			if (scores[i][bestWord[i]] == 0)
+				WordsMatched++;
+		}
+	}
+	int thesize = 0;
+
+	s.erase( remove( s.begin(), s.end(), ' ' ), s.end() );
+	t.erase( remove( t.begin(), t.end(), ' ' ), t.end() );
+
+	if (s.size() > t.size())
+		s.size();
+	else
+		t.size();
+	if (res > thesize)
+		res = thesize;
+	res = (1 - (res / thesize)) * 100;
+	double wordsRatio = ((double) WordsMatched / (double) tSplitted.size())
+			* 100;
+	double realWordsRatio = ((double) WordsMatched / (double) sSplitted.size())
+			* 100;
+	return realWordsRatio;
 }
 
 int main() {
-	string fileName = "", line = "";
-	//file to be tested for plagiarism
+	/*string fileName = "", line = "";
+//file to be tested for plagiarism
 	ifstream testFile;
-	//temporary databaseFile reader
+//temporary databaseFile reader
 	ifstream databaseFile;
-	//tested file content and temporary database file content
+//tested file content and temporary database file content
 	stringstream testFileString, databaseFileString;
-	//database file names
+//database file names
 	vector<string> databaseFileNames;
-	//database contente
+//database contente
 	vector<string> databaseFileContent;
-
 
 	databaseFileNames.push_back("db/f1.txt");
 	databaseFileNames.push_back("db/f2.txt");
@@ -112,7 +197,7 @@ int main() {
 	databaseFileNames.push_back("db/f9.txt");
 	databaseFileNames.push_back("db/f10.txt");
 
-	//chooses the file to be tested
+//chooses the file to be tested
 	do {
 		cout << "Escreva o nome do ficheiro a comparar com a base de dados: ";
 		cin >> fileName;
@@ -120,11 +205,11 @@ int main() {
 		if (!testFile.fail()) {
 			cout << "Ficheiro aberto com sucesso!" << endl << endl;
 		} else {
-			cout << "Ficheiro não existe!" << endl << endl;
+			cout << "Ficheiro nï¿½o existe!" << endl << endl;
 		}
 	} while (testFile.fail());
 
-	//reads file to test and copies to a string
+//reads file to test and copies to a string
 	if (testFile.is_open()) {
 		while (testFile.good()) {
 			getline(testFile, line);
@@ -135,7 +220,7 @@ int main() {
 //reads file database and stores it in a vector and copies each file's content to a stringstream vector
 	for (unsigned int i = 0; i < databaseFileNames.size(); i++) {
 		databaseFile.open(databaseFileNames[i].c_str());
-		if (!databaseFile.fail()) {//checks if file opened successfully
+		if (!databaseFile.fail()) { //checks if file opened successfully
 			while (databaseFile.good()) {
 				getline(databaseFile, line);
 				databaseFileString << line << endl;
@@ -144,6 +229,9 @@ int main() {
 		}
 		databaseFile.close();
 		cout << databaseFileContent[i] << endl;
-	}
+	}*/
+	string s = "teste";
+	string t = "teste vinte dez";
+	cout << computeSimilarityRatio( s, t);
 }
 
