@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 
 using namespace std;
 
@@ -96,6 +97,31 @@ double computeSimilarityRatio(const string& s, const string& t)
 		sSplitted = temp;
 	}
 
+	vector< vector<int> > scores(sSplitted.size(), vector<int>(tSplitted.size()));
+	vector <int> bestWord(sSplitted.size());
+
 	return res;
+}
+
+int main()
+{
+	ifstream file1;
+	ifstream file2;
+	stringstream ss;
+	string temp;
+
+	file1.open("t1.txt");
+
+	//copys a file to a string
+	if(file1.is_open())
+	{
+		while(file1.good())
+		{
+			getline(file1,temp);
+			ss << temp;
+		}
+	}
+
+	cout << ss.str() << endl;
 }
 
