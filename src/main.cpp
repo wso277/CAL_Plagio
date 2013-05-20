@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <vector>
+#include <algorithm>
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -8,6 +9,7 @@
 using namespace std;
 
 int computeLCS(string s, string t) {
+
 	if (t.length() > s.length()) {
 		swap(s, t);
 	}
@@ -31,8 +33,8 @@ int computeLCS(string s, string t) {
 }
 
 double computeSimilarity(string& s, string& t) {
-	unsigned int sSize = s.size();
-	unsigned int tSize = t.size();
+	unsigned int sSize = s.length();
+	unsigned int tSize = t.length();
 	double res;
 
 	if (sSize == 0 && tSize == 0) {
@@ -85,7 +87,7 @@ int main() {
 
 	do {
 		cout
-				<< "Escolha a base de dados para o teste:\n1 - Textos com séries de números\n2 - Textos sobre Batatas e Nvidia Titan\n\nOpcao: ";
+				<< "Escolha a base de dados para o teste:\n1 - Textos com séries de números\n2 - Textos sobre Batatas, Guitarras e Nvidia Titan\n\nOpcao: ";
 		getline(cin, temp1);
 		temp = atoi(temp1.c_str());
 		if (temp < 1 || temp > 2) {
@@ -128,10 +130,20 @@ int main() {
 	if (testFile.is_open()) {
 		while (testFile.good()) {
 			getline(testFile, line);
-			testFileString << line << " ";
+			temp1 = line[line.length() - 1];
+			line.erase(line.end() - 1, line.end());
+			testFileString << line;
 		}
+		testFileString << temp1;
 	}
 	testFileContent = testFileString.str();
+	for (unsigned int i = 0; i < testFileContent.length(); i++) {
+		if (testFileContent[i] == ' ' || testFileContent[i] == '\n'
+				|| testFileContent[i] == '\r\n ')
+				{
+			testFileContent.erase(i, 1);
+		}
+	}
 
 //chooses the maximum similarity before it's considered plagiarism
 	do {
@@ -148,9 +160,20 @@ int main() {
 		if (!databaseFile.fail()) { //checks if file opened successfully
 			while (databaseFile.good()) {
 				getline(databaseFile, line);
-				databaseFileString << line << " ";
+				temp1 = line[line.length() - 1];
+				line.erase(line.end() - 1, line.end());
+				databaseFileString << line;
 			}
+			databaseFileString << temp1;
 			databaseFileContent.push_back(databaseFileString.str());
+		}
+		for (unsigned int j = 0; j < databaseFileContent[i].length(); j++) {
+			if (databaseFileContent[i][j] == ' '
+					|| databaseFileContent[i][j] == '\n'
+					|| databaseFileContent[i][j] == '\r\n ')
+					{
+				databaseFileContent[i].erase(j, 1);
+			}
 		}
 		databaseFileString.str(string());
 		databaseFile.close();
@@ -167,22 +190,20 @@ int main() {
 		cout << limSimilarity << "% ";
 		if (limSimilarity > maxSimilarity) {
 			exceeds = true;
-			cout << "- EXCEEDS" << endl;
+			cout << "- EXCEDE" << endl;
 		} else {
-			cout << "- DOES NOT EXCEED" << endl;
+			cout << "- NAO EXCEDE" << endl;
 		}
 
 	}
 
 	if (exceeds) {
 		cout << endl
-
-		<< "The similarity ratio was exceeded. This file may be plagiarism!"
+				<< "O racio de semelhanca foi excedido. Este ficheiro pode ser plagio!"
 				<< endl;
 	} else {
 		cout << endl
-
-		<< "The similarity ratio was not exceeded. This is not plagiarism!"
+				<< "O racio de semelhanca nao foi excedido. Este ficheiro nao e plagio!"
 				<< endl;
 	}
 }

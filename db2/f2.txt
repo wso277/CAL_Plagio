@@ -1,14 +1,29 @@
-The Cray Titan awoke at the end of October last year, benchmarking at 17.59 petaflops it's the fastest of the current generation of supercomputers.
-Why would you care about a supercomputer when we're meant to be talking about a big graphics card? Well, Nvidia supplied 18,688 Tesla K20 cards to pack out the Titan and in exchange has nabbed the name to stick on its gaming-focused versions with the same GPU.
-There was always the feeling that the GK104 GPU at the heart of the GTX 680 wasn't the fastest implementation of Nvidia's Kepler architecture way back when I first got hold of our test unit back in March of last year. That was confirmed a few months later when we saw those Tesla K20 professional graphics card, home to the full-fat Kepler core, the GK110.
-14 best graphics cards for every budget
-The instant that card was confirmed though we were all here taking bets on how long it was going to take before Nvidia took the plunge and dropped the GK110 into a proper gaming desktop card.
-None of us thought we would have to wait this long, however, to a time in the year when we were half expecting a new generation of graphics cards to hit.
-Sadly it looks like the great graphics powers-that-be have decided we don't need a new generation right now. AMD has announced it's sticking with the current range of HD 7000 cards right through 2013, and we're only likely to see a new lineup right at the end of the year. And with the launch of Nvidia's GTX Titan I would bet that the next line of GTX 700 series cards, based on the upcoming Maxwell architecture, aren't going to be tipping up until the late-summer at the earliest.
-Whatever happens with the next generation of graphics cards though it's going to be incredibly difficult for any new GPU to be able to best the power available to the GK110 silicon.
-And as such this is probably going to be the fastest single-GPU card we'll see until Nvidia itself decides to pull the top chip out of the next-gen Tesla cards and offer it up to the desktop gaming crowd. Well, unless AMD does something completely unprecedented with Sea Islands.
-So, for the foreseeable this is the fastest single-GPU card around. And that's exactly what Nvidia was after as Tom Petersen, Nvidia's Director of Technical Marketing, told me a few weeks before launch: "this is without doubt the biggest, baddest, fastest graphics card we've ever built.
-The key thing about it is that it does crush all other single-GPU cards we've ever built and it crushes all other single GPUs anyone's ever built."
-That assertion about its single-GPU credentials is really the key to the GTX Titan. That's because it's not actually the fastest graphics card anyone's ever built, in fact both the EVGA GTX 690 and Club3D HD 7990 we're putting it up against are faster cards out of the blocks.
-But is overall straight-line performance the be-all-and-end-all? Nvidia would say no, AMD would say absolutely yes.
-Who's right? Well, as Obi Wan would say, you will find that many of the truths we cling to depend greatly on our own point of view…
+It might have a chambered body, but the Hagstrom Deuce F is a monster of a guitar that tips the scales at 3.85kg. That may seem like a deal breaker, but don't be hasty: this brute might just win you over yet.
+
+Playability is up there with the best of them. Hagstrom employs an ultra-stiff trussrod system that enables it to fit slim profile necks that don't compromise tuning stability.
+
+"Stomp on the filth with the bridge humbucker engaged for a fantastic aggressive tone; a thrilling combination of edge and beef that kills for metal and punk."
+Like all Hagstrom guitars, the Deuce F features a 'Resinator' fingerboard. This is a composite material that offers a feel and tone similar to ebony.
+
+The 'board is studded with 22 well-seated, well-dressed frets.
+
+The Deuce's Custom 58 humbuckers are each wired to a dedicated volume and push/pull tone control. Pull the tone knobs and each 'bucker splits for singlecoil sounds; push it to activate humbucker mode.
+
+The only problem is with the Gibson-style 'bell' knobs: they're tough to pull.
+
+You have to dig the meat of your fingers under the skirts of the knobs to shift them, and even our heavily calloused claws found that a bit uncomfortable after a few attempts. Fatter knobs would make coil splitting easier.
+
+Sounds
+Maybe it's the oversized headstock, the body chambers, the 10mm-thick maple top or the stiff neck, but the Deuce F pumps out an incredible amount of sustain.
+
+It could also be the over-engineered tailpiece that sees each string threaded through its own tone block, which is then anchored to the guitar's body via a thick slab of Perspex.
+
+It works brilliantly, even if it looks a bit bonkers. Luckily, the whole thing is covered by a chrome plate.
+
+Plugging the Deuce F in is a revelation. Stomp on the filth with the bridge humbucker engaged for a fantastic aggressive tone; a thrilling combination of edge and beef that kills for metal and punk.
+
+While it's less adept at bright rhythm jangle, the Deuce F still cleans up well. The neck humbucker also excels for jazz chords and weeping, bluesy lead tones.
+
+The Hagstrom Deuce F is an unusual beast, it's a bit on the heavy side and isn't quite as well-finished as competitors such as the PRS SE Custom Semi-Hollow.
+
+However, its incredible tone and sustain mark it out as one of the best affordable rock guitars we've ever tested. If your spine can take it, give it a whirl.
