@@ -70,7 +70,6 @@ int computeLevenshteinDistance(const string& s, const string& t) {
 
 double computeSimilarityRatio(string& s, string& t) {
 	double res = 0;
-
 	vector<string> sSplit = getSplitString(s, ' ');
 	vector<string> tSplit = getSplitString(t, ' ');
 
@@ -143,35 +142,38 @@ double computeSimilarityRatio(string& s, string& t) {
 		}
 	}
 	for (unsigned int i = 0; i < sSplit.size(); i++) {
-		if (scores[i][bestWord[i]] == 1000)
+		if (scores[i][bestWord[i]] == 1000) {
 			res += sSplit[i].size(); //All words without a score for best word are max failures
-		else {
+		} else {
 			res += scores[i][bestWord[i]];
-			if (scores[i][bestWord[i]] == 0)
+			if (scores[i][bestWord[i]] == 0) {
 				wordsMatched++;
+			}
 		}
 	}
-	int thesize = 0;
+	int varSize = 0;
 
 	s.erase(remove(s.begin(), s.end(), ' '), s.end());
 	t.erase(remove(t.begin(), t.end(), ' '), t.end());
 
-	if (s.size() > t.size())
-		s.size();
-	else
-		t.size();
-	if (res > thesize)
-		res = thesize;
-	res = (1 - (res / thesize)) * 100;
-	double wordsRatio = ((double) wordsMatched / (double) tSplit.size())
-			* 100;
+	if (s.size() > t.size()) {
+		varSize = s.size();
+	} else {
+		varSize = t.size();
+	}
+	if (res > varSize) {
+		res = varSize;
+	}
+
+	res = (1 - (res / varSize)) * 100;
+	double wordsRatio = ((double) wordsMatched / (double) tSplit.size()) * 100;
 	double realWordsRatio = ((double) wordsMatched / (double) sSplit.size())
 			* 100;
-	return ;
+	return realWordsRatio;
 }
 
 int main() {
-	string fileName = "", line = "", temp = "";
+	string fileName = "", line = "", temp1 = "", temp2 = "";
 //file to be tested for plagiarism
 	ifstream testFile;
 //temporary databaseFile reader
@@ -185,16 +187,21 @@ int main() {
 //file content
 	string testFileContent;
 
-	databaseFileNames.push_back("db/f1.txt");
-	databaseFileNames.push_back("db/f2.txt");
-	databaseFileNames.push_back("db/f3.txt");
-	databaseFileNames.push_back("db/f4.txt");
-	databaseFileNames.push_back("db/f5.txt");
-	databaseFileNames.push_back("db/f6.txt");
-	databaseFileNames.push_back("db/f7.txt");
-	databaseFileNames.push_back("db/f8.txt");
-	databaseFileNames.push_back("db/f9.txt");
-	databaseFileNames.push_back("db/f10.txt");
+//	databaseFileNames.push_back("db1/f1.txt");
+//	databaseFileNames.push_back("db1/f2.txt");
+//	databaseFileNames.push_back("db1/f3.txt");
+//	databaseFileNames.push_back("db1/f4.txt");
+//	databaseFileNames.push_back("db1/f5.txt");
+//	databaseFileNames.push_back("db1/f6.txt");
+//	databaseFileNames.push_back("db1/f7.txt");
+//	databaseFileNames.push_back("db1/f8.txt");
+//	databaseFileNames.push_back("db1/f9.txt");
+//	databaseFileNames.push_back("db1/f10.txt");
+
+	databaseFileNames.push_back("db2/f1.txt");
+	databaseFileNames.push_back("db2/f2.txt");
+	databaseFileNames.push_back("db2/f3.txt");
+	databaseFileNames.push_back("db2/f4.txt");
 
 //chooses the file to be tested
 //	do {
@@ -204,21 +211,22 @@ int main() {
 //		if (!testFile.fail()) {
 //			cout << "Ficheiro aberto com sucesso!" << endl << endl;
 //		} else {
-//			cout << "Ficheiro n�o existe!" << endl << endl;
+//			cout << "Ficheiro nao existe!" << endl << endl;
 //		}
 //	} while (testFile.fail());
 
-	fileName = "teste.txt";
+	fileName = "teste_texto.txt";
 	testFile.open(fileName.c_str());
 
 //reads file to test and copies to a string
 	if (testFile.is_open()) {
 		while (testFile.good()) {
 			getline(testFile, line);
-			testFileString << line << endl;
+			testFileString << line << " ";
 		}
 	}
 	testFileContent = testFileString.str();
+	cout << testFileContent << endl << endl;
 
 //reads file database and stores it in a vector and copies each file's content to a stringstream vector
 	for (unsigned int i = 0; i < databaseFileNames.size(); i++) {
@@ -226,18 +234,21 @@ int main() {
 		if (!databaseFile.fail()) { //checks if file opened successfully
 			while (databaseFile.good()) {
 				getline(databaseFile, line);
-				databaseFileString << line << endl;
+				databaseFileString << line << " ";
 			}
 			databaseFileContent.push_back(databaseFileString.str());
 		}
+		databaseFileString.str(string());
+		cout << databaseFileContent[i] << endl;
 		databaseFile.close();
 	}
 
 	for (unsigned int i = 0; i < databaseFileNames.size(); i++) {
-		temp = databaseFileContent[i];
+		temp1 = testFileContent;
+		temp2 = databaseFileContent[i];
 		cout << "Similaridade de " << fileName << " com "
 				<< databaseFileNames[i] << " - "
-				<< computeSimilarityRatio(testFileContent, temp) << endl;
+				<< computeSimilarityRatio(temp1, temp2) << endl;
 	}
 
 }

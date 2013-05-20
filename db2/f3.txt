@@ -1,0 +1,26 @@
+The Nvidia GeForce GTX Titan is a single-GPU graphics card and has what Nvidia claims to be the world’s fastest GPU. It certainly has an impressive specification, with 2,688 CUDA cores and 6GB of GDDR5 memory. Regardless of whether or not it’s the world’s fastest, you’re not going to have any trouble playing the latest games with a specification like that.
+
+The GeForce GTX Titan takes its name from the Titan supercomputer, which is currently the world’s fastest supercomputer. The Titan draws its incredible performance from 18,668 Nvidia Tesla K20X graphics accelerators, and powering the K20X is the GK110 Kepler GPU. It is the GK110 that powers the GeForce GTX Titan, hence the name.
+
+
+
+We’ve tested the Geforce GTX Titan reference board, and in its reference configuration the Titan has a base clock speed of 836MHz but can boost to 876MHz when the GPU’s temperature is below 80-degrees Celcius. As you’d expect with an enthusiast graphics card, it’s also possible to overclock the GeForce GTX Titan for extra power. Its 6,144MB of memory is clocked at 6008MHz and the GeForce GTX Titan uses a 384-bit memory interface.
+
+Physically, the GeForce GTX Titan is 267mm in length, making it shorter than the Nvidia GeForce GTX 690 and therefore easier to fit inside a wider range of cases. The Titan consumes two slots, as you’d expect, and it provides two dual-link DVI, one HDMI and one DisplayPort connectors which lets you run multiple monitor setups.
+
+
+
+As for power, the GeForce GTX Titan has one 6-pin and one 8-pin PCI-E power connector, which means it should be compatible with a wider range of power supplies than the GTX 690.
+
+Drawing comparisons with the slightly cheaper GTX 690 is inevitable, especially as the GTX 690 has a higher 915MHz clock speed and can boost to over 1GHz, but the Titan isn’t meant to replace the GTX 690. Instead, it’s intended to be used in multiple monitor setups for surround gaming, and for use with high resolution monitors.
+
+In use, we were amazed by the relative quiet of the GeForce GTX Titan, which made a gentle purring noise rather than a loud roar. This is a high-performance graphics card you can live with on a daily basis when you’re not gaming.
+We initially tested the GTX Titan using our Dirt Showdown benchmark at Ultra quality with 4x anti-aliasing and a 1,920x1,080 resolution and achieved a frame rate of 91.2fps. This is three times more than the 30fps needed to make this game playable, and reducing the settings to High quality and the resolution to 1,280x720 raised the frame rate even higher to 113.2. Of course, it’s our Crysis 2 benchmark that really challenges graphics cards, and at Ultra quality with 4x anti-aliasing and a 1,920x1,080 resolution we achieved a very impressive frame rate of 49.6fps - the same frame rate provided by the GTX 690.
+
+Eager to see just how good the card is in Surround mode, we used the Dirt Showdown benchmark at a 5,760x1,080 resolution, Ultra quality and 4x anti-aliasing and achieved a very smooth 44.9fps. Reducing the quality settings to High raised the frame rate to a very impressive 96.9fps.
+
+
+
+Our Crysis 2 frame rate of 24.5fps at a 5,760x1,080 resolution and Ultra quality is less impressive and less than the 37.1fps achieved by the GTX 690. However, once we’d reduced the benchmark to High quality, at which Crysis 2 still looks fantastic, the frame rate shot up to 50fps; that’s a fantastic frame rate when you consider it’s running at 5,760x1,080.
+
+It’s difficult to compare the results of the GTX 690 and the GTX Titan because we’ve changed some of our benchmarks, but it would appear that the dual-GPU GTX 690 is still the fastest Nvidia card. If you want a quiet and less power-hungry single GPU card that is well suited to multiple monitor configurations, the GTX Titan is clearly a better choice than the Nvidia GeForce GTX 690, but many users would be better off buying the Nvidia GeForce GTX 680. It’s £400 less than the GTX Titan and is powerful enough to run graphically challenging games.

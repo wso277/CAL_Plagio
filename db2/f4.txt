@@ -1,0 +1,26 @@
+Nvidia's Kepler architecture debuted a year ago with the GeForce GTX 680, which has sat somewhat comfortably as the market's top single-GPU graphics card, forcing AMD to reduce prices and launch a special HD 7970 GHz Edition card to help close the value gap. Despite besting its rival, many believe Nvidia had planned to make its 600 series flagship even faster by using the GK110 chip, but purposefully held back with the GK104 to save cash, since it was competitive enough performance-wise.
+
+That isn't to say people were necessarily disappointed in the GTX 680. The 28nm part packs 3540 million transistors into a smallish 294mm2 die and delivers 18.74 Gigaflops per watt with a memory bandwidth of 192.2GB/s, while it tripled the GTX 580's CUDA cores and doubled its TAUs -- no small feat, to be sure. Nonetheless, we all knew the GK110 existed and we were eager to see how Nvidia brought it to the consumer market -- assuming it even decided to. Fortunately, that wait is now over.
+
+
+After wearing the single-GPU performance crown for 12 months, the GTX 680 has been dethroned by the new GTX Titan. Announced on February 21, the Titan carries a GK110 GPU with a transistor count that has more than doubled from the GTX 680's 3.5 billion to a staggering 7.1 billion. The part has roughly 25% to 50% more resources at its disposal than Nvidia's previous flagship, including 2688 stream processors (up 75%), 224 texture units (also up 75%) and 48 raster operations (a healthy 50% boost).
+
+In case you're curious, it's worth noting that there's "only" estimated to be a 25% to 50% performance gain because the Titan is clocked lower than the GTX 680. Given those expectations, it would be fair to assume that the Titan would be priced at roughly a 50% premium, which would be about $700. But there's nothing fair about the Titan's pricing -- and there doesn't have to be. Nvidia is marketing the card as a hyper-fast solution for extreme gamers with deep pockets, setting the MSRP at a whopping $1,000.
+
+
+That puts the Titan in the dual-GPU GTX 690's territory, or about 120% more than the GTX 680. In other words, the Titan is not going to be a good value in terms of price versus performance, but Nvidia is undoubtedly aware of this and to some extent, we'll have to respect it as a niche luxury product. With that in mind, let's lift the Titan's hood and see what makes it tick before we run it through our usual gauntlet of benchmarks, which now includes frame latency measurements -- more on that in a bit.
+
+Titan’s GK110 GPU in Detail
+The GeForce Titan is a true processing powerhorse. The GK110 chip carries 14 SMX units with 2688 CUDA cores, boasting up to 4.5 Teraflops of peak compute performance.
+
+As noted earlier, the Titan features a core configuration that consists of 2688 SPUs, 224 TAUs and 48 ROPs. The card's memory subsystem consists of six 64-bit memory controllers (384-bit) with 6GB of GDDR5 memory running at 6008MHz, which works out to a peak bandwidth of 288.4GB/s -- 50% more than the GTX 680.
+
+
+
+
+The Titan we have is outfitted with Samsung K4G20325FD-FC03 GDDR5 memory chips, which are rated at 1500MHz -- the same as you'll find on the reference GTX 690.
+
+
+Where the Titan falls short of the GTX 680 is in its core clock speed, which is set at 836MHz versus 1006MHz. That 17% difference is made up slightly by Boost Clock, Nvidia's dynamic frequency feature, which can push the Titan as high as 876MHz.
+
+By default, the GTX Titan includes a pair of dual-link DVI ports, a single HDMI port and one DisplayPort 1.2 connector. Support for 4K resolution monitors exists, while it is also possible to support up to four monitors screens.
