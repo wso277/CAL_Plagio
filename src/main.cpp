@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdlib.h>
 #include <vector>
 #include <iostream>
 #include <sstream>
@@ -6,71 +7,62 @@
 
 using namespace std;
 
-int computeLCS(string s,string t)
-{
-     if (t.length() > s.length())
-     {
-        swap(s,t);
-     }
-
-     int m = s.length();
-     int n=t.length();
-     vector< vector<int> > res(2, vector<int>(n+1,0));
-
-     for (int i=1;i<=m;i++)
-     {
-         for (int j=1;j<=n;j++)
-         {
-             if (s[i-1]==t[j-1])
-                res[1][j]=res[0][j-1]+1;
-             else
-                 res[1][j]=max(res[1][j-1],res[0][j]);
-         }
-         for (int j=1;j<=n;j++)
-             res[0][j]=res[1][j];
-     }
-
-     return (res[1][n]);
-}
-
-double computeSimilarity(string& s, string& t)
-{
-  unsigned int sSize = s.size();
-  unsigned int tSize = t.size();
-  double res;
-
-  if (sSize == 0 && tSize == 0)
-  {
-    // Two empty strings are equal
-    res = 1;
-  }
-  else
-  {
-    unsigned int size;
-	string ss;
-	ss = s+s;
-
-    size = computeLCS(ss, t);
-    if (size > sSize)
-	{
-		size = sSize;
+int computeLCS(string s, string t) {
+	if (t.length() > s.length()) {
+		swap(s, t);
 	}
 
-    size *= 2;
+	int m = s.length();
+	int n = t.length();
+	vector<vector<int> > res(2, vector<int>(n + 1, 0));
 
-    if (size == sSize + tSize && strcmp(s.c_str(), t.c_str()) != 0)
-    {
-    	size--;
-    }
+	for (int i = 1; i <= m; i++) {
+		for (int j = 1; j <= n; j++) {
+			if (s[i - 1] == t[j - 1])
+				res[1][j] = res[0][j - 1] + 1;
+			else
+				res[1][j] = max(res[1][j - 1], res[0][j]);
+		}
+		for (int j = 1; j <= n; j++)
+			res[0][j] = res[1][j];
+	}
 
-    // Get the final measure of the similarity
-    res = (double)size / (sSize + tSize);
-  }
+	return (res[1][n]);
+}
 
-  return res;
+double computeSimilarity(string& s, string& t) {
+	unsigned int sSize = s.size();
+	unsigned int tSize = t.size();
+	double res;
+
+	if (sSize == 0 && tSize == 0) {
+		// Two empty strings are equal
+		res = 1;
+	} else {
+		unsigned int size;
+		string ss;
+		ss = s + s;
+
+		size = computeLCS(ss, t);
+		if (size > sSize) {
+			size = sSize;
+		}
+
+		size *= 2;
+
+		if (size == sSize + tSize && strcmp(s.c_str(), t.c_str()) != 0) {
+			size--;
+		}
+
+		// Get the final measure of the similarity
+		res = (double) size / (sSize + tSize);
+	}
+
+	return res;
 }
 
 int main() {
+	int temp;
 	string fileName = "", line = "", temp1 = "", temp2 = "";
 //file to be tested for plagiarism
 	ifstream testFile;
@@ -84,37 +76,53 @@ int main() {
 	vector<string> databaseFileContent;
 //file content
 	string testFileContent;
+//maximum similarity
+	double maxSimilarity;
+//similarity limit
+	double limSimilarity;
+//if a file exceeds maximum similarity
+	bool exceeds = false;
 
-//	databaseFileNames.push_back("db1/f1.txt");
-//	databaseFileNames.push_back("db1/f2.txt");
-//	databaseFileNames.push_back("db1/f3.txt");
-//	databaseFileNames.push_back("db1/f4.txt");
-//	databaseFileNames.push_back("db1/f5.txt");
-//	databaseFileNames.push_back("db1/f6.txt");
-//	databaseFileNames.push_back("db1/f7.txt");
-//	databaseFileNames.push_back("db1/f8.txt");
-//	databaseFileNames.push_back("db1/f9.txt");
-//	databaseFileNames.push_back("db1/f10.txt");
+	do {
+		cout
+				<< "Escolha a base de dados para o teste:\n1 - Textos com séries de números\n2 - Textos sobre Batatas e Nvidia Titan\n\nOpcao: ";
+		getline(cin, temp1);
+		temp = atoi(temp1.c_str());
+		if (temp < 1 || temp > 2) {
+			cout << "Opcao invalida!" << endl << endl;
+		}
+	} while (temp < 1 || temp > 2);
 
-	databaseFileNames.push_back("db2/f1.txt");
-	databaseFileNames.push_back("db2/f2.txt");
-	databaseFileNames.push_back("db2/f3.txt");
-	databaseFileNames.push_back("db2/f4.txt");
+	if (temp == 1) {
+		databaseFileNames.push_back("db1/f1.txt");
+		databaseFileNames.push_back("db1/f2.txt");
+		databaseFileNames.push_back("db1/f3.txt");
+		databaseFileNames.push_back("db1/f4.txt");
+		databaseFileNames.push_back("db1/f5.txt");
+		databaseFileNames.push_back("db1/f6.txt");
+		databaseFileNames.push_back("db1/f7.txt");
+		databaseFileNames.push_back("db1/f8.txt");
+		databaseFileNames.push_back("db1/f9.txt");
+		databaseFileNames.push_back("db1/f10.txt");
+	} else {
+		databaseFileNames.push_back("db2/f1.txt");
+		databaseFileNames.push_back("db2/f2.txt");
+		databaseFileNames.push_back("db2/f3.txt");
+		databaseFileNames.push_back("db2/f4.txt");
+	}
 
 //chooses the file to be tested
-//	do {
-//		cout << "Escreva o nome do ficheiro a comparar com a base de dados: ";
-//		cin >> fileName;
-//		testFile.open(fileName.c_str());
-//		if (!testFile.fail()) {
-//			cout << "Ficheiro aberto com sucesso!" << endl << endl;
-//		} else {
-//			cout << "Ficheiro nao existe!" << endl << endl;
-//		}
-//	} while (testFile.fail());
-
-	fileName = "teste_texto.txt";
-	testFile.open(fileName.c_str());
+	cout << endl << endl;
+	do {
+		cout << "Escreva o nome do ficheiro a comparar com a base de dados: ";
+		cin >> fileName;
+		testFile.open(fileName.c_str());
+		if (!testFile.fail()) {
+			cout << "Ficheiro aberto com sucesso!" << endl << endl;
+		} else {
+			cout << "Ficheiro nao existe!" << endl << endl;
+		}
+	} while (testFile.fail());
 
 //reads file to test and copies to a string
 	if (testFile.is_open()) {
@@ -124,7 +132,15 @@ int main() {
 		}
 	}
 	testFileContent = testFileString.str();
-	cout << testFileContent << endl << endl;
+
+//chooses the maximum similarity before it's considered plagiarism
+	do {
+		cout << "Escreva o grau maximo de similaridade (1-100): ";
+		cin >> maxSimilarity;
+		if (maxSimilarity < 1 || maxSimilarity > 100) {
+			printf("Insira um numero valido (1-100)!\n\n");
+		}
+	} while (maxSimilarity < 1 || maxSimilarity > 100);
 
 //reads file database and stores it in a vector and copies each file's content to a stringstream vector
 	for (unsigned int i = 0; i < databaseFileNames.size(); i++) {
@@ -137,17 +153,37 @@ int main() {
 			databaseFileContent.push_back(databaseFileString.str());
 		}
 		databaseFileString.str(string());
-		cout << databaseFileContent[i] << endl;
 		databaseFile.close();
 	}
+
+	cout << endl << endl;
 
 	for (unsigned int i = 0; i < databaseFileNames.size(); i++) {
 		temp1 = testFileContent;
 		temp2 = databaseFileContent[i];
 		cout << "Similaridade de " << fileName << " com "
-				<< databaseFileNames[i] << " - "
-				<< computeSimilarity(temp1, temp2)*100 << "%" << endl;
+				<< databaseFileNames[i] << " - ";
+		limSimilarity = computeSimilarity(temp1, temp2) * 100.0;
+		cout << limSimilarity << "% ";
+		if (limSimilarity > maxSimilarity) {
+			exceeds = true;
+			cout << "- EXCEEDS" << endl;
+		} else {
+			cout << "- DOES NOT EXCEED" << endl;
+		}
+
 	}
 
+	if (exceeds) {
+		cout << endl
+
+		<< "The similarity ratio was exceeded. This file may be plagiarism!"
+				<< endl;
+	} else {
+		cout << endl
+
+		<< "The similarity ratio was not exceeded. This is not plagiarism!"
+				<< endl;
+	}
 }
 
