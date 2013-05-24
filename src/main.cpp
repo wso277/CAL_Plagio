@@ -8,28 +8,45 @@
 
 using namespace std;
 
-int computeLCS(string s, string t) {
+string computeLCS(string s, string t) {
 
-	if (t.length() > s.length()) {
+	if (s.size() > t.size())
 		swap(s, t);
-	}
+	unsigned int L[s.size()][t.size()];
+	for (unsigned int i = 0; i < s.size(); i++)
+		for (unsigned int j = 0; j < t.size(); j++)
+			L[i][j] = 0;
+	unsigned int z = 0;
 
-	int m = s.length();
-	int n = t.length();
-	vector<vector<int> > res(2, vector<int>(n + 1, 0));
+	string ret;
 
-	for (int i = 1; i <= m; i++) {
-		for (int j = 1; j <= n; j++) {
-			if (s[i - 1] == t[j - 1])
-				res[1][j] = res[0][j - 1] + 1;
-			else
-				res[1][j] = max(res[1][j - 1], res[0][j]);
+	for (unsigned int i = 0; i < s.size(); i++) {
+		for (unsigned int j = 0; j < t.size(); j++) {
+			if (s[i] == t[j]) {
+				if (i == 0 || j == 0) {
+					L[i][j] = 1;
+				} else {
+					L[i][j] = L[i - 1][j - 1] + 1;
+				}
+
+				if (L[i][j] > z) {
+					z = L[i][j];
+					cout << "I: " << i << endl << "J: " << j << endl << "Z: "
+							<< z << endl;
+					cout << ret << endl;
+					ret = s.substr(i - z + 1, z);
+				} else if (L[i][j] == z) {
+					cout << "I: " << i << endl << "J: " << j << endl << "Z: "
+							<< z << endl;
+					cout << ret << endl;
+					ret += s.substr(i - z + 1, z);
+				} else {
+					L[i][j] = 0;
+				}
+			}
 		}
-		for (int j = 1; j <= n; j++)
-			res[0][j] = res[1][j];
 	}
-
-	return (res[1][n]);
+	return ret;
 }
 
 double computeSimilarity(string& s, string& t) {
@@ -38,26 +55,23 @@ double computeSimilarity(string& s, string& t) {
 	double res;
 
 	if (sSize == 0 && tSize == 0) {
-		// Two empty strings are equal
+// Two empty strings are equal
 		res = 1;
 	} else {
 		unsigned int size;
-		string ss;
-		ss = s + s;
+		string resS;
 
-		size = computeLCS(ss, t);
-		if (size > sSize) {
-			size = sSize;
-		}
+		resS = computeLCS(s, t);
 
-		size *= 2;
+		cout << "RESULTADO: ";
+		cout << endl << resS.size() << endl;
 
-		if (size == sSize + tSize && strcmp(s.c_str(), t.c_str()) != 0) {
-			size--;
-		}
+		res = resS.size();
 
-		// Get the final measure of the similarity
-		res = (double) size / (sSize + tSize);
+// Get the final measure of the similarity
+		res = (double) 2 * res / (sSize + tSize);
+
+		cout << endl << "RES:" << res << endl;
 	}
 
 	return res;
@@ -139,7 +153,7 @@ int main() {
 	testFileContent = testFileString.str();
 	for (unsigned int i = 0; i < testFileContent.length(); i++) {
 		if (testFileContent[i] == ' ' || testFileContent[i] == '\n'
-				|| testFileContent[i] == '\r\n ')
+				|| testFileContent[i] == '\r\n')
 				{
 			testFileContent.erase(i, 1);
 		}
@@ -170,7 +184,7 @@ int main() {
 		for (unsigned int j = 0; j < databaseFileContent[i].length(); j++) {
 			if (databaseFileContent[i][j] == ' '
 					|| databaseFileContent[i][j] == '\n'
-					|| databaseFileContent[i][j] == '\r\n ')
+					|| databaseFileContent[i][j] == '\r\n')
 					{
 				databaseFileContent[i].erase(j, 1);
 			}
@@ -186,6 +200,7 @@ int main() {
 		temp2 = databaseFileContent[i];
 		cout << "Similaridade de " << fileName << " com "
 				<< databaseFileNames[i] << " - ";
+
 		limSimilarity = computeSimilarity(temp1, temp2) * 100.0;
 		cout << limSimilarity << "% ";
 		if (limSimilarity > maxSimilarity) {
