@@ -8,20 +8,25 @@
 
 using namespace std;
 
+
+#define MAX_SIZE 2000
+
+unsigned long int L[MAX_SIZE][MAX_SIZE];
+
 string computeLCS(string s, string t) {
 
 	if (s.size() > t.size())
 		swap(s, t);
-	unsigned int L[s.size()][t.size()];
-	for (unsigned int i = 0; i < s.size(); i++)
-		for (unsigned int j = 0; j < t.size(); j++)
+
+	for (unsigned long int i = 0; i < s.size(); i++)
+		for (unsigned long int j = 0; j < t.size(); j++)
 			L[i][j] = 0;
-	unsigned int z = 0;
+	unsigned long int z = 0;
 
 	string ret;
 
-	for (unsigned int i = 0; i < s.size(); i++) {
-		for (unsigned int j = 0; j < t.size(); j++) {
+	for (unsigned long int i = 0; i < s.size(); i++) {
+		for (unsigned long int j = 0; j < t.size(); j++) {
 			if (s[i] == t[j]) {
 				if (i == 0 || j == 0) {
 					L[i][j] = 1;
@@ -31,14 +36,8 @@ string computeLCS(string s, string t) {
 
 				if (L[i][j] > z) {
 					z = L[i][j];
-					cout << "I: " << i << endl << "J: " << j << endl << "Z: "
-							<< z << endl;
-					cout << ret << endl;
 					ret = s.substr(i - z + 1, z);
 				} else if (L[i][j] == z) {
-					cout << "I: " << i << endl << "J: " << j << endl << "Z: "
-							<< z << endl;
-					cout << ret << endl;
 					ret += s.substr(i - z + 1, z);
 				} else {
 					L[i][j] = 0;
@@ -50,31 +49,69 @@ string computeLCS(string s, string t) {
 }
 
 double computeSimilarity(string& s, string& t) {
-	unsigned int sSize = s.length();
-	unsigned int tSize = t.length();
+	unsigned long int sSize = s.size();
+	unsigned long int tSize = t.size();
 	double res;
 
 	if (sSize == 0 && tSize == 0) {
 // Two empty strings are equal
 		res = 1;
 	} else {
-		unsigned int size;
 		string resS;
 
 		resS = computeLCS(s, t);
-
-		cout << "RESULTADO: ";
-		cout << endl << resS.size() << endl;
 
 		res = resS.size();
 
 // Get the final measure of the similarity
 		res = (double) 2 * res / (sSize + tSize);
 
-		cout << endl << "RES:" << res << endl;
 	}
 
 	return res;
+}
+
+double divideText(string& s, string& t) {
+
+	vector<string> sDiv;
+	vector<string> tDiv;
+	int sSize = s.size();
+	int tSize = t.size();
+	unsigned long int i = 0;
+	double limSimilarity = 0;
+	double finalSimilarity = 0;
+
+
+	while (sSize > MAX_SIZE) {
+		sDiv.push_back(s.substr(i, MAX_SIZE));
+		i += MAX_SIZE;
+		sSize-=MAX_SIZE;
+	}
+
+	sDiv.push_back(s.substr(i,MAX_SIZE));
+
+	i = 0;
+
+	while (tSize > MAX_SIZE) {
+		tDiv.push_back(t.substr(i, MAX_SIZE));
+		i += MAX_SIZE;
+		tSize-=MAX_SIZE;
+	}
+
+	tDiv.push_back(s.substr(i,MAX_SIZE));
+	unsigned int j;
+	unsigned int k;
+	for (j= 0; j < sDiv.size(); j++) {
+		for (k = 0; k < tDiv.size(); k++) {
+			limSimilarity += computeSimilarity(sDiv[j], tDiv[k]);
+		}
+
+	}
+
+	finalSimilarity = limSimilarity/(j*k);
+
+	return finalSimilarity;
+
 }
 
 int main() {
@@ -125,6 +162,7 @@ int main() {
 		databaseFileNames.push_back("db2/f2.txt");
 		databaseFileNames.push_back("db2/f3.txt");
 		databaseFileNames.push_back("db2/f4.txt");
+		databaseFileNames.push_back("db2/f5.txt");
 	}
 
 //chooses the file to be tested
@@ -151,7 +189,7 @@ int main() {
 		testFileString << temp1;
 	}
 	testFileContent = testFileString.str();
-	for (unsigned int i = 0; i < testFileContent.length(); i++) {
+	for (unsigned long int i = 0; i < testFileContent.length(); i++) {
 		if (testFileContent[i] == ' ' || testFileContent[i] == '\n'
 				|| testFileContent[i] == '\r\n')
 				{
@@ -169,7 +207,8 @@ int main() {
 	} while (maxSimilarity < 1 || maxSimilarity > 100);
 
 //reads file database and stores it in a vector and copies each file's content to a stringstream vector
-	for (unsigned int i = 0; i < databaseFileNames.size(); i++) {
+
+	for (unsigned long int i = 0; i < databaseFileNames.size(); i++) {
 		databaseFile.open(databaseFileNames[i].c_str());
 		if (!databaseFile.fail()) { //checks if file opened successfully
 			while (databaseFile.good()) {
@@ -181,7 +220,8 @@ int main() {
 			databaseFileString << temp1;
 			databaseFileContent.push_back(databaseFileString.str());
 		}
-		for (unsigned int j = 0; j < databaseFileContent[i].length(); j++) {
+		for (unsigned long int j = 0; j < databaseFileContent[i].length();
+				j++) {
 			if (databaseFileContent[i][j] == ' '
 					|| databaseFileContent[i][j] == '\n'
 					|| databaseFileContent[i][j] == '\r\n')
@@ -193,15 +233,21 @@ int main() {
 		databaseFile.close();
 	}
 
-	cout << endl << endl;
-
-	for (unsigned int i = 0; i < databaseFileNames.size(); i++) {
+	for (unsigned long int k = 0; k < databaseFileNames.size(); k++) {
 		temp1 = testFileContent;
-		temp2 = databaseFileContent[i];
+		temp2 = databaseFileContent[k];
+		cout << endl << databaseFileContent[k].size() << endl;
 		cout << "Similaridade de " << fileName << " com "
-				<< databaseFileNames[i] << " - ";
+				<< databaseFileNames[k] << " - ";
 
-		limSimilarity = computeSimilarity(temp1, temp2) * 100.0;
+		if (temp1.size() > MAX_SIZE || temp2.size() > MAX_SIZE) {
+
+			limSimilarity = divideText(temp1, temp2) * 100.0;
+
+		} else {
+			limSimilarity = computeSimilarity(temp1, temp2) * 100.0;
+
+		}
 		cout << limSimilarity << "% ";
 		if (limSimilarity > maxSimilarity) {
 			exceeds = true;
@@ -221,5 +267,6 @@ int main() {
 				<< "O racio de semelhanca nao foi excedido. Este ficheiro nao e plagio!"
 				<< endl;
 	}
+
 }
 
