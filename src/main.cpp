@@ -9,14 +9,19 @@
 using namespace std;
 
 
-#define MAX_SIZE 2000
+#define MAX_SIZE 20000
 
-unsigned long int L[MAX_SIZE][MAX_SIZE];
+//unsigned long int L[MAX_SIZE][MAX_SIZE];
 
 string computeLCS(string s, string t) {
 
 	if (s.size() > t.size())
 		swap(s, t);
+
+	unsigned int n = s.size();
+	unsigned int m = t.size();
+
+	vector<vector<unsigned int> > L(n + 1, vector<unsigned int>(m + 1));
 
 	for (unsigned long int i = 0; i < s.size(); i++)
 		for (unsigned long int j = 0; j < t.size(); j++)
@@ -71,49 +76,6 @@ double computeSimilarity(string& s, string& t) {
 	return res;
 }
 
-double divideText(string& s, string& t) {
-
-	vector<string> sDiv;
-	vector<string> tDiv;
-	int sSize = s.size();
-	int tSize = t.size();
-	unsigned long int i = 0;
-	double limSimilarity = 0;
-	double finalSimilarity = 0;
-
-
-	while (sSize > MAX_SIZE) {
-		sDiv.push_back(s.substr(i, MAX_SIZE));
-		i += MAX_SIZE;
-		sSize-=MAX_SIZE;
-	}
-
-	sDiv.push_back(s.substr(i,MAX_SIZE));
-
-	i = 0;
-
-	while (tSize > MAX_SIZE) {
-		tDiv.push_back(t.substr(i, MAX_SIZE));
-		i += MAX_SIZE;
-		tSize-=MAX_SIZE;
-	}
-
-	tDiv.push_back(s.substr(i,MAX_SIZE));
-	unsigned int j;
-	unsigned int k;
-	for (j= 0; j < sDiv.size(); j++) {
-		for (k = 0; k < tDiv.size(); k++) {
-			limSimilarity += computeSimilarity(sDiv[j], tDiv[k]);
-		}
-
-	}
-
-	finalSimilarity = limSimilarity/(j*k);
-
-	return finalSimilarity;
-
-}
-
 int main() {
 	int temp;
 	string fileName = "", line = "", temp1 = "", temp2 = "";
@@ -138,7 +100,7 @@ int main() {
 
 	do {
 		cout
-				<< "Escolha a base de dados para o teste:\n1 - Textos com séries de números\n2 - Textos sobre Batatas, Guitarras e Nvidia Titan\n\nOpcao: ";
+				<< "Escolha a base de dados para o teste:\n1 - Textos com series de numeros\n2 - Textos sobre Batatas, Guitarras e Nvidia Titan\n\nOpcao: ";
 		getline(cin, temp1);
 		temp = atoi(temp1.c_str());
 		if (temp < 1 || temp > 2) {
@@ -183,7 +145,7 @@ int main() {
 		while (testFile.good()) {
 			getline(testFile, line);
 			temp1 = line[line.length() - 1];
-			line.erase(line.end() - 1, line.end());
+			//line.erase(line.end() - 1, line.end());
 			testFileString << line;
 		}
 		testFileString << temp1;
@@ -214,7 +176,7 @@ int main() {
 			while (databaseFile.good()) {
 				getline(databaseFile, line);
 				temp1 = line[line.length() - 1];
-				line.erase(line.end() - 1, line.end());
+				//line.erase(line.end() - 1, line.end());
 				databaseFileString << line;
 			}
 			databaseFileString << temp1;
@@ -236,18 +198,9 @@ int main() {
 	for (unsigned long int k = 0; k < databaseFileNames.size(); k++) {
 		temp1 = testFileContent;
 		temp2 = databaseFileContent[k];
-		cout << endl << databaseFileContent[k].size() << endl;
 		cout << "Similaridade de " << fileName << " com "
 				<< databaseFileNames[k] << " - ";
-
-		if (temp1.size() > MAX_SIZE || temp2.size() > MAX_SIZE) {
-
-			limSimilarity = divideText(temp1, temp2) * 100.0;
-
-		} else {
-			limSimilarity = computeSimilarity(temp1, temp2) * 100.0;
-
-		}
+		limSimilarity = computeSimilarity(temp1, temp2) * 100.0;
 		cout << limSimilarity << "% ";
 		if (limSimilarity > maxSimilarity) {
 			exceeds = true;
